@@ -25,7 +25,7 @@ jobs:
         go get -v -t -d ./...
 
     - name: Build for macOS
-      run: GOOS=darwin GOARCH=amd64 go build -v . -o yl-link-generator-macos
+      run: GOOS=darwin GOARCH=amd64 go build -v -o yl-link-generator-macos .
 
     - name: Upload MacOS Release Asset
       id: upload-macos-release-asset
@@ -40,7 +40,7 @@ jobs:
         asset_content_type: application/octet-stream
 
     - name: Build for windows 
-      run: GOOS=windows GOARCH=amd64 go build -v . -o yl-link-generator.exe
+      run: GOOS=windows GOARCH=amd64 go build -v -o yl-link-generator.exe .
 
     - name: Upload Windows Release Asset
       id: upload-windows-release-asset 
