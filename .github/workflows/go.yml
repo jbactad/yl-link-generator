@@ -28,7 +28,7 @@ jobs:
         go get -v -t -d ./...
 
     - name: Build for macOS
-      run: GOOS=darwin GOARCH=amd64 go build -v -o yl-link-generator-macos .
+      run: GOOS=darwin GOARCH=amd64 go build -v -o yl-link-generator-macos . && zip macos.zip yl-link-generator-macos
 
     - name: Get Release url
       id: get_release_url
@@ -40,14 +40,14 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.get_release_url.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        upload_url: ${{ steps.get_release_url.outputs.upload_url }}
         asset_label: MacOS
-        asset_path: ./yl-link-generator-macos
-        asset_name: yl-link-generator 
+        asset_path: ./macos.zip
+        asset_name: macos.zip
         asset_content_type: application/octet-stream
 
     - name: Build for windows 
-      run: GOOS=windows GOARCH=amd64 go build -v -o yl-link-generator.exe .
+      run: GOOS=windows GOARCH=amd64 go build -v -o yl-link-generator.exe . && zip windows.zip yl-link-generator.exe
 
     - name: Upload Windows Release Asset
       id: upload-windows-release-asset 
@@ -55,8 +55,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.get_release_url.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        upload_url: ${{ steps.get_release_url.outputs.upload_url }}
         asset_label: Windows
-        asset_path: ./yl-link-generator.exe
-        asset_name: yl-link-generator.exe
+        asset_path: ./windows.zip
+        asset_name: windows.zip
         asset_content_type: application/octet-stream
