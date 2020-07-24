@@ -27,13 +27,17 @@ jobs:
     - name: Build for macOS
       run: GOOS=darwin GOARCH=amd64 go build -v -o yl-link-generator-macos .
 
+    - name: Get Release url
+      id: get_release_url
+      uses: bruceadams/get-release@v1
+
     - name: Upload MacOS Release Asset
       id: upload-macos-release-asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        upload_url: ${{ steps.get_release_url.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
         asset_label: MacOS
         asset_path: ./yl-link-generator-macos
         asset_name: yl-link-generator 
