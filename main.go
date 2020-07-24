@@ -44,7 +44,7 @@ func main() {
 	if *sponsorID == 0 {
 		//var tmp string
 		fmt.Print(sponsorIDMsg + ": ")
-		_, err = fmt.Scanf("%d", sponsorID)
+		_, err = fmt.Scanf("%d\n", sponsorID)
 		if err != nil {
 			panic(fmt.Errorf("invalid sponsor-id: %v", err))
 		}
@@ -52,7 +52,7 @@ func main() {
 
 	if *enrollerID == 0 {
 		fmt.Print(enrollerIDMsg + ": ")
-		_, err = fmt.Scanf("%d", enrollerID)
+		_, err = fmt.Scanf("%d\n", enrollerID)
 		if err != nil {
 			panic(fmt.Errorf("invalid enroller-id: %v", err))
 		}
@@ -73,6 +73,9 @@ func main() {
 		BitlyApiURL+"/v4/shorten",
 		strings.NewReader(fmt.Sprintf(`{"long_url": "%s"}`, longURL)),
 	)
+	if err != nil {
+		panic(fmt.Errorf("error sending request to bitly api: %v", err))
+	}
 
 	req.Header.Add("Authorization", "Bearer "+BitlyAccessToken)
 	resp, err := http.DefaultClient.Do(req)
