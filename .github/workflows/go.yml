@@ -44,7 +44,7 @@ jobs:
         asset_label: MacOS
         asset_path: ./macos.zip
         asset_name: macos.zip
-        asset_content_type: application/octet-stream
+        asset_content_type: application/zip
 
     - name: Build for windows 
       run: GOOS=windows GOARCH=amd64 go build -v -o yl-link-generator.exe . && zip windows.zip yl-link-generator.exe
@@ -59,4 +59,5 @@ jobs:
         asset_label: Windows
         asset_path: ./windows.zip
         asset_name: windows.zip
-        asset_content_type: application/octet-stream
+        asset_content_type: application/zip
+
