@@ -27,8 +27,8 @@ jobs:
     - name: Build for macOS
       run: GOOS=darwin GOARCH=amd64 go build -v . -o yl-link-generator-macos
 
-    - name: Upload Release Asset
-      id: upload-release-asset 
+    - name: Upload MacOS Release Asset
+      id: upload-macos-release-asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -42,8 +42,8 @@ jobs:
     - name: Build for windows 
       run: GOOS=windows GOARCH=amd64 go build -v . -o yl-link-generator.exe
 
-    - name: Upload Release Asset
-      id: upload-release-asset 
+    - name: Upload Windows Release Asset
+      id: upload-windows-release-asset 
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
